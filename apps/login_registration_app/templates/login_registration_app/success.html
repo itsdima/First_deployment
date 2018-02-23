@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Books Home</title>
+		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+	</head>
+	<body>
+		<!-- <a href="/logout"><button style="margin-bottom: 12px;">Logout</button></a> -->
+		<h1 style="display: inline-block;">Welcome, {{ name }}!</h1> <div style="display: inline-block; float: right;"><a style="display: inline-block;" href="/books/add">Add Book and Review</a> &nbsp;&nbsp;<a href="/logout">Logout</a></div>
+		<br>
+		<h2>Recent Book Reviews:</h2>
+		<div style="width: 300px; display: inline-block;">
+			{% for key in review %}
+				<div style="display: block;">
+					<a href="/books/{{ key.book.id }}" style="font-size: 18px;">{{ key.book.title }}</a>
+					<ul style="list-style: none;">
+						<li>Rating: {{ key.rating }}</li>
+						<br>
+						<li><a href="/users/{{ key.posted_by.id }}">{{ key.posted_by.alias }}</a> says: {{ key.comment }}</li>
+						<li>Posted on {{ key.created_at }}</li>
+						{% if key.posted_by.id == id %}
+						<li><a href="/destroy/{{ key.id }}">Delete this Review</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			{% endfor %}
+		</div>
+		<div style="margin-left: 250px; display: inline-block; vertical-align: top;">
+			<h2>Other Books with Reviews</h2>
+			<div style="width: 400px; padding: 2px; vertical-align: top; min-height: 100px; display: inline-block; border: 2px solid black; overflow-y: scroll;">
+			{% for key in others %}
+				<a href="/books/{{ key.book.id }}">{{ key.book.title }}</a><br>
+			{% endfor %}
+			</div>
+		</div>
+	</body>
+</html>

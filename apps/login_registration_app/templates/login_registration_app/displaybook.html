@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Book</title>
+	</head>
+	<body>
+		<div>
+			<h1 style="display: inline-block;">{{ thisbook.title }}</h1>
+			<span style="float: right;"><a href="/books" style=" display: inline-block;">Home</a> &nbsp; &nbsp; <a href="/logout" style=" display: inline-block;">Logout</a></span>
+			<p>Author: {{ thisbook.author }}</p>
+		</div>
+		<div style="display: inline-block; width: 400px;">
+			<h1>Reviews:</h1>
+			{% for i in book %}
+			<div style="border-bottom: 2px solid black;">
+				<p>Rating: {{ i.rating }}</p>
+				<p><a href="/users/{{ i.posted_by.id }}">{{ i.posted_by.alias }}</a> says: {{ i.comment }}</p>
+				<p>Posted on {{ i.created_at }}</p>
+				{% if i.posted_by.id == userID %}
+				<p><a href="/destroy/{{ i.id }}">Delete this Review</a></p>
+				{% endif %}
+			</div>
+			{% endfor %}
+		</div>
+		<div style="display: inline-block; vertical-align: top; margin-left: 200px;">
+			<h2>Add a review</h2>
+			<form action="/quickreview/{{ id }}" method="post">
+				{% csrf_token %}
+				<textarea name="quickreview" style="width: 400px; height: 100px; border: 2px solid black;"></textarea>
+				<h2>Rating: <select name="quickrating">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5+</option>
+				</select></h2>
+				<input type="submit" name="Submit Review" style="float: right;">
+			</form>
+		</div>
+	</body>
+</html>

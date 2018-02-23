@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Login/Register</title>
+	</head>
+	<body>
+		<h1>Welcome!</h1>
+		{% if messages %}
+			{% if message.tags == error %}
+			<ul>
+				{% for message in messages %}
+					<li style="color: red;">{{ message }}</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+		{% endif %}
+		<div style="display: inline-block;">
+			<form action="/register" method="post">
+			{% csrf_token %}
+				<fieldset style="border: 2px solid black; width: 400px;">
+					<legend style="padding: 0.2em 0.3em "><h2>Register</h2></legend>
+					<table>
+						<tbody>
+							<tr>
+								<td>Name:</td>
+								<td><input type="text" name="name"></td>
+							</tr>
+							<tr>
+								<td>Alias:</td>
+								<td><input type="text" name="alias"></td>
+							</tr>
+							<tr>
+								<td>Email:</td>
+								<td><input type="text" name="email"></td>
+							</tr>
+							<tr>
+								<td>Password:</td>
+								<td><input type="password" name="password"></td>
+							</tr>
+							<tr>
+								<td>Confirm Password:</td>
+								<td><input type="password" name="confirm"></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input type="submit" name="submit" style="float: right;"></td>
+							</tr>
+						</tbody>
+					</table>
+				</fieldset>
+			</form>
+		</div>
+		<div style="display: inline-block;">
+			<form action="/login" method="post">
+			{% csrf_token %}
+			<fieldset style="border: 2px solid black; width: 400px;">
+				<legend style="padding: 0.2em 0.3em "><h2>Login</h2></legend>
+				<table>
+				<!-- {% if messages %}
+					{% if message.tags == warning %}
+					<ul>
+						{% for message in messages %}
+							<li style="color: red;">{{ message }}</li>
+						{% endfor %}
+					</ul>
+					{% endif %}
+				{% endif %} -->
+					<tbody>
+						<tr>
+							<td>Email:</td>
+							<td><input type="text" name="logemail"></td>
+						</tr>
+						<tr>
+							<td>Password:</td>
+							<td><input type="password" name="logpassword"></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><input type="submit" name="submit" style="float: right;"></td>
+						</tr>
+					</tbody>
+				</table>
+			</fieldset>
+			</form>
+		</div>
+	</body>
+</html>
